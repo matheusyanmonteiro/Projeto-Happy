@@ -14,11 +14,30 @@ export class createImages1602697152730 implements MigrationInterface {
                     isGenerated: true,
                     generationStrategy: 'increment',
                 },
+                {
+                    name: 'path',
+                    type: "varchar",
+                },
+                {
+                    name: 'orphanage_id',
+                    type: "interger",
+                },
+            ],
+            foreignKeys: [
+                {
+                    name: 'ImageOrphanage',
+                    columnNames: ['orphanage_id'],
+                    referencedTableName: 'orphanages',
+                    referencedColumnNames: ['id'],
+                    onUpdate: 'CASCADE',
+                    onDelete: 'CASCADE',
+                }
             ]
         }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('images');
     }
 
 }
